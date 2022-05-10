@@ -2,7 +2,7 @@
 
 [![CC BY 4.0][cc-by-shield]][cc-by]
 
-This repository contains supporting information for the Frontiers in Marine Science article The Next Decade of Seismic Oceanography: Possibilities, Challenges and Solutions.
+This repository contains supporting information for the [Frontiers in Marine Science](https://www.frontiersin.org/journals/marine-science){:target="_blank"} article The Next Decade of Seismic Oceanography: Possibilities, Challenges and Solutions.
 
 This work is licensed under a
 [Creative Commons Attribution 4.0 International License][cc-by].
