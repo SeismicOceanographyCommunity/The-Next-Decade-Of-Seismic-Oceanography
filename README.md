@@ -1,6 +1,6 @@
 ## The Next Decade of Seismic Oceanography: Supplementary Material
 
-[![CC BY 4.0][cc-by-shield]][cc-by]{:target="_blank"}
+[![CC BY 4.0][cc-by-shield]][cc-by]
 
 This repository contains supporting information for the Frontiers in Marine Science article The Next Decade of Seismic Oceanography: Possibilities, Challenges and Solutions.
 
