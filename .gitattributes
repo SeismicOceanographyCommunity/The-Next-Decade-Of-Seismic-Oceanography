@@ -1,0 +1,15 @@
+figure4/data/cgg_seismic_polygons_3d.dat filter=lfs diff=lfs merge=lfs -text
+figure4/data/geoscience_australia filter=lfs diff=lfs merge=lfs -text
+figure4/data/namss filter=lfs diff=lfs merge=lfs -text
+figure4/data/pgs_seismic_polygons_2d.dat filter=lfs diff=lfs merge=lfs -text
+figure4/data/pgs_seismic_polygons_3d.dat filter=lfs diff=lfs merge=lfs -text
+figure4/data/schlumberger_seismic_polygons_2d.dat filter=lfs diff=lfs merge=lfs -text
+figure4/data/cgg_seismic_polygons_2d.dat filter=lfs diff=lfs merge=lfs -text
+figure4/data/onestop_shop filter=lfs diff=lfs merge=lfs -text
+figure4/data/ion_geophysical_seismic_polygons_2d.dat filter=lfs diff=lfs merge=lfs -text
+figure4/data/ion_geophysical_seismic_polygons_3d.dat filter=lfs diff=lfs merge=lfs -text
+figure4/data/tgs_seismic_polygons_2d.dat filter=lfs diff=lfs merge=lfs -text
+figure4/data/tgs_seismic_polygons_3d.dat filter=lfs diff=lfs merge=lfs -text
+figure4/data/woce_ctds filter=lfs diff=lfs merge=lfs -text
+figure4/data/bgs filter=lfs diff=lfs merge=lfs -text
+figure4/data/schlumberger_seismic_polygons_3d.dat filter=lfs diff=lfs merge=lfs -text
