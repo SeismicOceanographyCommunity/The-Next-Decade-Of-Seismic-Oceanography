@@ -1,0 +1,398 @@
+#!/bin/bash
+
+plot() {
+	
+	if [ $open_option == "yes" ]
+	then
+		gmt psbasemap $rgn $proj -Ba0f0 $xpos $ypos -K > $image.ps
+	else
+		gmt psbasemap $rgn $proj -Ba0f0 $xpos $ypos -O -K >> $image.ps
+	fi
+	
+	
+	if [ $ctd_option == 'yes' ]
+	then
+		i=0
+		for ctd_file in $(find $ctd_root_dir -name '*.sec')
+		do
+			tail -n+3 $ctd_file | awk '{print $1,$2}' | gmt psxy $proj $rgn $ctd_line_outline_string $xpos $ypos -O -K >> $image.ps
+			tail -n+3 $ctd_file | awk '{print $1,$2}' | gmt psxy $proj $rgn $ctd_line_string $xpos $ypos -O -K >> $image.ps
+			i=$(echo $i | awk '{print $1+1}')
+		done
+	fi
+
+
+	if [ $open_source_namss_3d_option == 'yes' ]
+	then
+		cat $namss_3d_file.csv | awk 'BEGIN{FS=","}{print $1,$2}' | gmt psxy $proj $rgn -Gred $xpos $ypos -O -K >> $image.ps
+	fi
+
+	if [ $open_source_bgr_option == 'yes' ]
+	then
+		tail -n+1 $open_source_root_dir/BGR_seismik_Trackline_LineStrings.csv | awk 'BEGIN{FS=","}{print $1,$2}' | gmt psxy $proj $rgn $academic_outline_string $xpos $ypos -O -K >> $image.ps
+		tail -n+1 $open_source_root_dir/BGR_seismik_Trackline_LineStrings.csv | awk 'BEGIN{FS=","}{print $1,$2}' | gmt psxy $proj $rgn $academic_string $xpos $ypos -O -K >> $image.ps
+	fi
+	if [ $open_source_noaa_ngdc_option == 'yes' ]
+	then
+		tail -n+1 $open_source_root_dir/Geodas_CDPSR_LineStrings.csv | awk 'BEGIN{FS=","}{print $1,$2}' | gmt psxy $proj $rgn $academic_outline_string $xpos $ypos -O -K >> $image.ps
+		tail -n+1 $open_source_root_dir/Geodas_CDPSR_LineStrings.csv | awk 'BEGIN{FS=","}{print $1,$2}' | gmt psxy $proj $rgn $academic_string $xpos $ypos -O -K >> $image.ps
+	fi
+	if [ $open_source_ipgs_option == 'yes' ]
+	then
+		tail -n+1 $open_source_root_dir/IPGS_Trackline_LineStrings.csv | awk 'BEGIN{FS=","}{print $1,$2}' | gmt psxy $proj $rgn $academic_outline_string $xpos $ypos -O -K >> $image.ps
+		tail -n+1 $open_source_root_dir/IPGS_Trackline_LineStrings.csv | awk 'BEGIN{FS=","}{print $1,$2}' | gmt psxy $proj $rgn $academic_string $xpos $ypos -O -K >> $image.ps
+	fi
+	if [ $open_source_utig_option == 'yes' ]
+	then
+		tail -n+1 $open_source_root_dir/UTIG_Trackline_LineStrings.csv | awk 'BEGIN{FS=","}{print $1,$2}' | gmt psxy $proj $rgn $academic_outline_string $xpos $ypos -O -K >> $image.ps
+		tail -n+1 $open_source_root_dir/UTIG_Trackline_LineStrings.csv | awk 'BEGIN{FS=","}{print $1,$2}' | gmt psxy $proj $rgn $academic_string $xpos $ypos -O -K >> $image.ps
+	fi
+
+
+	### Open-source commercial datasets
+	if [ $open_source_bgs_option == 'yes' ]
+	then
+		tail -n+1 $bgs_seismic_file.csv | awk 'BEGIN{FS=","}{print $1,$2}' | gmt psxy $proj $rgn $open_source_commercial_string $xpos $ypos -O -K >> $image.ps
+	fi
+	if [ $open_source_namss_2d_option == 'yes' ]
+	then
+		cat $namss_2d_file.csv | awk 'BEGIN{FS=","}{print $1,$2}' | gmt psxy $proj $rgn $open_source_commercial_string $xpos $ypos -O -K >> $image.ps
+	fi
+
+	### Plot Australian open-source NOPIMS data if required
+	if [ $open_source_gams2d_seismic_option == 'yes' ]
+	then
+		cat $australia_gams2d_file.csv | awk 'BEGIN{FS=","}{print $1,$2}' | gmt psxy $proj $rgn $open_source_commercial_string $xpos $ypos -O -K >> $image.ps
+	fi
+	if [ $open_source_xfiles_seismic_option == 'yes' ]
+	then
+		cat $australia_xfiles_file.csv | awk 'BEGIN{FS=","}{print $1,$2}' | gmt psxy $proj $rgn $open_source_commercial_string -L $xpos $ypos -O -K >> $image.ps
+	fi
+	if [ $open_source_snip2d_seismic_option == 'yes' ]
+	then
+		cat $australia_snip2d_file.csv | awk 'BEGIN{FS=","}{print $1,$2}' | gmt psxy $proj $rgn $open_source_commercial_string -L $xpos $ypos -O -K >> $image.ps
+	fi
+	if [ $open_source_gams3d_seismic_option == 'yes' ]
+	then
+		cat $australia_gams3d_file.csv | awk 'BEGIN{FS=","}{print $1,$2}' | gmt psxy $proj $rgn $australia_3d_outline_string -L $xpos $ypos -O -K >> $image.ps
+	fi
+	if [ $open_source_snip3d_seismic_option == 'yes' ]
+	then
+		cat $australia_snip3d_file.csv | awk 'BEGIN{FS=","}{print $1,$2}' | gmt psxy $proj $rgn $australia_3d_outline_string -L $xpos $ypos -O -K >> $image.ps
+	fi
+
+	if [ $open_source_gams3d_seismic_option == 'yes' ]
+	then
+		cat $australia_gams3d_file.csv | awk 'BEGIN{FS=","}{print $1,$2}' | gmt psxy $proj $rgn $australia_3d_string -L $xpos $ypos -O -K >> $image.ps
+	fi
+	if [ $open_source_snip3d_seismic_option == 'yes' ]
+	then
+		cat $australia_snip3d_file.csv | awk 'BEGIN{FS=","}{print $1,$2}' | gmt psxy $proj $rgn $australia_3d_string -L $xpos $ypos -O -K >> $image.ps
+	fi
+
+
+
+	# Proprietary commercial datasets
+	if [ $commercial_seismic_option == 'yes' ]
+	then
+		cat $ion_2d_seismic | gmt psxy $proj $rgn -G$color_2d $line_outline_string_2d $xpos $ypos -O -K >> $image.ps
+		cat $schlumberger_2d_seismic | gmt psxy $proj $rgn -G$color_2d $line_outline_string_2d $xpos $ypos -O -K >> $image.ps
+		cat $tgs_2d_seismic | gmt psxy $proj $rgn -G$color_2d $line_outline_string_2d $xpos $ypos -O -K >> $image.ps
+		cat $cgg_2d_seismic | gmt psxy $proj $rgn -G$color_2d $line_outline_string_2d $xpos $ypos -O -K >> $image.ps
+		cat $pgs_2d_seismic | gmt psxy $proj $rgn -G$color_2d $line_outline_string_2d $xpos $ypos -O -K >> $image.ps
+
+		cat $ion_2d_seismic | gmt psxy $proj $rgn -G$color_2d $xpos $ypos -O -K >> $image.ps
+		cat $schlumberger_2d_seismic | gmt psxy $proj $rgn -G$color_2d $xpos $ypos -O -K >> $image.ps
+		cat $tgs_2d_seismic | gmt psxy $proj $rgn -G$color_2d $xpos $ypos -O -K >> $image.ps
+		cat $cgg_2d_seismic | gmt psxy $proj $rgn -G$color_2d $xpos $ypos -O -K >> $image.ps
+		cat $pgs_2d_seismic | gmt psxy $proj $rgn -G$color_2d $xpos $ypos -O -K >> $image.ps
+
+		cat $ion_3d_seismic | gmt psxy $proj $rgn -G$color_3d $line_outline_string_3d $xpos $ypos -O -K >> $image.ps
+		cat $schlumberger_3d_seismic | gmt psxy $proj $rgn -G$color_3d $line_outline_string_3d $xpos $ypos -O -K >> $image.ps
+		cat $tgs_3d_seismic | gmt psxy $proj $rgn -G$color_3d $line_outline_string_3d $xpos $ypos -O -K >> $image.ps
+		cat $cgg_3d_seismic | gmt psxy $proj $rgn -G$color_3d $line_outline_string_3d $xpos $ypos -O -K >> $image.ps
+		cat $pgs_3d_seismic | gmt psxy $proj $rgn -G$color_3d $line_outline_string_3d $xpos $ypos -O -K >> $image.ps
+
+		cat $ion_3d_seismic | gmt psxy $proj $rgn -G$color_3d $xpos $ypos -O -K >> $image.ps
+		cat $schlumberger_3d_seismic | gmt psxy $proj $rgn -G$color_3d $xpos $ypos -O -K >> $image.ps
+		cat $tgs_3d_seismic | gmt psxy $proj $rgn -G$color_3d $xpos $ypos -O -K >> $image.ps
+		cat $cgg_3d_seismic | gmt psxy $proj $rgn -G$color_3d $xpos $ypos -O -K >> $image.ps
+		cat $pgs_3d_seismic | gmt psxy $proj $rgn -G$color_3d $xpos $ypos -O -K >> $image.ps
+	fi
+	
+	
+	
+	gmt pscoast $rgn $proj -Di -G$land_color -C$land_color -A0/0/0 $coastline_pen $xpos $ypos -O -K >> $image.ps
+	gmt pscoast $rgn $proj -Di -G$land_color -C$land_color -A0/0/0 $xpos $ypos -O -K >> $image.ps
+	
+	if [ $alaska_label_option == 'yes' ]
+	then
+		echo -145 66 'Alaska' | gmt pstext $rgn $proj $alaska_label_format $xpos $ypos -O -K >> $image.ps
+	fi
+	
+	if [ $australia_label_option == 'yes' ]
+	then
+		echo 129.5 -19 'Australia' | gmt pstext $rgn $proj $australia_label_format $xpos $ypos -O -K >> $image.ps
+	fi
+	
+	echo $figure_label_x $figure_label_y $figure_label | gmt pstext $figure_label_rgn $figure_label_proj $figure_label_format $xpos $ypos -O -K >> $image.ps
+	
+	if [ $close_option == 'yes' ]
+	then
+		gmt psbasemap $rgn $proj $basemap_annot $xpos $ypos -O >> $image.ps
+	
+		cp $image.ps temp_image.ps
+		gmt psconvert temp_image.ps -Tf -E720 -A -P
+
+		convert -density 300 -quality 100 -trim temp_image.pdf temp_image.jpg
+
+		mv temp_image.ps $image.ps
+		mv temp_image.pdf $image.pdf
+		mv temp_image.jpg $image.jpg
+		
+		rm gmt.conf
+		rm gmt.history
+		
+	elif [ $close_option == 'no' ]
+	then
+		gmt psbasemap $rgn $proj $basemap_annot $xpos $ypos -O -K >> $image.ps
+	fi
+}
+
+
+
+
+gmt gmtset PS_MEDIA A0
+gmt gmtset PS_PAGE_ORIENTATION landscape
+gmt gmtset COLOR_BACKGROUND white
+gmt gmtset MAP_FRAME_TYPE plain
+gmt gmtset MAP_FRAME_PEN 3p,black
+gmt gmtset MAP_DEFAULT_PEN black
+gmt gmtset FONT_ANNOT_SECONDARY 20p,Helvetica-Bold,black
+gmt gmtset FONT_ANNOT_PRIMARY 20p,Helvetica-Bold,black
+gmt gmtset FONT_LABEL 20p,Helvetica-Bold,black
+gmt gmtset MAP_TICK_LENGTH_PRIMARY 0.2c
+gmt gmtset MAP_TICK_LENGTH_SECONDARY 0.1c
+gmt gmtset MAP_TICK_PEN_PRIMARY 2p
+gmt gmtset MAP_TICK_PEN_SECONDARY 2p
+
+
+
+
+ion_2d_seismic=./data/ion_geophysical_seismic_polygons_2d.dat
+ion_3d_seismic=./data/ion_geophysical_seismic_polygons_3d.dat
+
+schlumberger_2d_seismic=./data/schlumberger_seismic_polygons_2d.dat
+schlumberger_3d_seismic=./data/schlumberger_seismic_polygons_3d.dat
+
+tgs_2d_seismic=./data/tgs_seismic_polygons_2d.dat
+tgs_3d_seismic=./data/tgs_seismic_polygons_3d.dat
+
+cgg_2d_seismic=./data/cgg_seismic_polygons_2d.dat
+cgg_3d_seismic=./data/cgg_seismic_polygons_3d.dat
+
+pgs_2d_seismic=./data/pgs_seismic_polygons_2d.dat
+pgs_3d_seismic=./data/pgs_seismic_polygons_3d.dat
+
+
+color_2d=salmon
+color_3d=red
+line_outline_string_2d=-W2p,black
+line_outline_string_3d=-W2p,black
+
+
+ctd_root_dir=data/woce_ctds/data/whp/ctd
+ctd_line_outline_string="-W3p,black"
+ctd_line_string="-W2p,lightblue"
+
+open_source_root_dir=./data/onestop_shop/final_format
+
+academic_outline_string="-W1p,black"
+academic_string="-W0.66p,yellow"
+
+open_source_commercial_string="-W0.05p,black"
+
+australia_3d_outline_string="-W1p,black"
+australia_3d_string="-W0.75p,royalblue1"
+
+land_color='lightgray'
+coastline_pen='-W2p,black'
+
+
+bgs_seismic_file=./data/bgs/shp2kml/bgs_seismic_reflection_LineStrings
+
+namss_2d_file=./data/namss/namss_shapefile_unzipped/namss_2d_qgis_shp2kml_conversion_LineStrings
+
+namss_3d_file=./data/namss/namss_shapefile_unzipped/namss_3d_qgis_shp2kml_conversion_LinearRings
+
+
+### Geoscience Australia (NOPIMS) files
+australia_gams2d_file=./data/geoscience_australia/74674_shp/GAMS_split/shp2kml/Surveys_GAMS_2D_2012_Nov_LineStrings
+australia_gams3d_file=./data/geoscience_australia/74674_shp/GAMS_split/shp2kml/Surveys_GAMS_3D_2012_Nov_LineStrings
+
+australia_snip2d_file=./data/geoscience_australia/74674_shp/GAMS_split/shp2kml/Surveys_SNIP_2D_2012_Nov_LineStrings
+australia_snip3d_file=./data/geoscience_australia/74674_shp/GAMS_split/shp2kml/Surveys_SNIP_3D_2012_Nov_LineStrings
+
+australia_xfiles_file=./data/geoscience_australia/74674_shp/GAMS_split/shp2kml/Surveys_XFiles_2012_Nov_LineStrings
+
+
+
+
+
+
+### Plot figure with multiple panels
+
+### Plot panels b and c
+figure_label_offset=0.5
+alaska_label_format="-F+f24p,Helvetica-Bold+jMC+a-19"
+australia_label_format="-F+f36p,Helvetica-Bold+jMC+a32"
+
+# Plot Australian Northwest Shelf using Mercator projection
+proj1=-JM12.5ch
+proj=$proj1
+east1=135
+west1=110
+north1=-8
+south1=-23
+rgn1=-R$west1/$east1/$south1/$north1
+rgn=$rgn1
+basemap_annot="-Ba10f5/a5f2.5::neSW"
+ctd_option='no'
+open_source_bgr_option='yes'
+open_source_noaa_ngdc_option='yes'
+open_source_ipgs_option='yes'
+open_source_mg_dms_option='no'
+open_source_utig_option='yes'
+open_source_bgs_option='yes'
+open_source_namss_2d_option='yes'
+open_source_namss_3d_option='yes'
+open_source_gams2d_seismic_option='yes'
+open_source_gams3d_seismic_option='yes'
+open_source_snip2d_seismic_option='yes'
+open_source_snip3d_seismic_option='yes'
+open_source_xfiles_seismic_option='yes'
+commercial_seismic_option='no'
+alaska_label_option='no'
+australia_label_option='yes'
+image=./images/dickinson_gunn_2022_figure4
+x1=3
+xpos1=$(echo $x1 | awk '{print "-Xa"$1"c"}')
+xpos=$xpos1
+y1=3
+ypos1=$(echo $y1 | awk '{print "-Ya"$1"c"}')
+ypos=$ypos1
+frame1_xlength=$(echo $east1 $north1 | gmt mapproject $rgn1 $proj1 | awk '{print $1}')
+frame1_ylength=$(echo $east1 $north1 | gmt mapproject $rgn1 $proj1 | awk '{print $2}')
+figure_label='B'
+figure_label_x=$(echo $frame1_xlength $figure_label_offset | awk '{print $1-$2}')
+figure_label_y=$(echo $figure_label_offset | awk '{print $1}')
+figure_label_format="-F+f30p,Helvetica-Bold+jBR -Gwhite -W2p,black"
+figure_label_proj=-JX$frame1_xlength/$frame1_ylength
+figure_label_rgn=-R0/$frame1_xlength/0/$frame1_ylength
+open_option='yes'
+close_option='no'
+plot
+
+
+
+# Plot Alaska using Mercator projection
+proj2=-JM12.5ch
+east2=230
+west2=165
+north2=73
+south2=45
+rgn2=-R$west2/$east2/$south2/$north2
+rgn=$rgn2
+basemap_annot="-Ba20f10/a10f5::nESw"
+ctd_option='no'
+open_source_bgr_option='yes'
+open_source_noaa_ngdc_option='yes'
+open_source_ipgs_option='yes'
+open_source_mg_dms_option='no'
+open_source_utig_option='yes'
+open_source_bgs_option='yes'
+open_source_namss_2d_option='yes'
+open_source_namss_3d_option='yes'
+open_source_gams2d_seismic_option='yes'
+open_source_gams3d_seismic_option='yes'
+open_source_snip2d_seismic_option='yes'
+open_source_snip3d_seismic_option='yes'
+open_source_xfiles_seismic_option='yes'
+commercial_seismic_option='no'
+alaska_label_option='yes'
+australia_label_option='no'
+plot_offset_12_cm=1
+x2=$(echo $x1 $frame1_xlength $plot_offset_12_cm | awk '{print $1+$2+$3}')
+xpos2=$(echo $x2 | awk '{print "-Xa"$1"c"}')
+xpos=$xpos2
+y2=$y1
+ypos2=$(echo $y2 | awk '{print "-Ya"$1"c"}')
+ypos=$ypos2
+frame2_xlength=$(echo $east2 $north2 | gmt mapproject $rgn2 $proj2 | awk '{print $1}')
+frame2_ylength=$(echo $east2 $north2 | gmt mapproject $rgn2 $proj2 | awk '{print $2}')
+figure_label='C'
+figure_label_x=$(echo $frame2_xlength $figure_label_offset | awk '{print $1-$2}')
+figure_label_y=$(echo $figure_label_offset | awk '{print $1}')
+figure_label_format="-F+f30p,Helvetica-Bold+jBR -Gwhite -W2p,black"
+figure_label_proj=-JX$frame2_xlength/$frame2_ylength
+figure_label_rgn=-R0/$frame2_xlength/0/$frame2_ylength
+open_option='no'
+close_option='no'
+plot
+
+
+
+# Plot the globe using Mollweide projection
+frame3_xlength=$(echo $frame1_xlength $frame2_xlength $plot_offset_12_cm | awk '{print $1+$2+$3}')
+proj3=-JW0/$frame3_xlength"c"
+proj=$proj3
+east3=180
+north3=90
+rgn3=-Rg
+rgn=$rgn3
+basemap_annot="-Ba0f0"
+ctd_option='yes'
+open_source_bgr_option='yes'
+open_source_noaa_ngdc_option='yes'
+open_source_ipgs_option='yes'
+open_source_mg_dms_option='no'
+open_source_utig_option='yes'
+open_source_bgs_option='yes'
+open_source_namss_2d_option='yes'
+open_source_namss_3d_option='yes'
+open_source_gams2d_seismic_option='yes'
+open_source_gams3d_seismic_option='yes'
+open_source_snip2d_seismic_option='yes'
+open_source_snip3d_seismic_option='yes'
+open_source_xfiles_seismic_option='yes'
+commercial_seismic_option='yes'
+alaska_label_option='no'
+australia_label_option='no'
+plot_offset_vertical_23_cm=1
+x3=$x1
+xpos3=$(echo $x3 | awk '{print "-Xa"$1"c"}')
+xpos=$xpos3
+y3=$(echo $y1 $frame1_ylength $plot_offset_vertical_23_cm | awk '{print $1+$2+$3}')
+ypos3=$(echo $y3 | awk '{print "-Ya"$1"c"}')
+ypos=$ypos3
+frame3_ylength=$(echo $east3 $north3 | gmt mapproject $rgn3 $proj3 | awk '{print $2}')
+figure_label='A'
+figure_label_x=$(echo $frame2_xlength $figure_label_offset | awk '{print $2}')
+figure_label_y=$(echo $figure_label_offset | awk '{print $1}')
+figure_label_format="-F+f30p,Helvetica-Bold+jBL -Gwhite -W2p,black"
+figure_label_proj=-JX$frame3_xlength/$frame3_ylength
+figure_label_rgn=-R0/$frame3_xlength/0/$frame3_ylength
+open_option='no'
+close_option='yes'
+plot
+
+
+
+
+
+
+
+
+
+
+
