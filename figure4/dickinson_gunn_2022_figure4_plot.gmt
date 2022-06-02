@@ -178,7 +178,7 @@ gmt gmtset MAP_TICK_PEN_SECONDARY 2p
 
 
 
-
+### Filenames for polygons digitised from maps showing data coverage of five largest seismic exploration companies (ION, CGG, PGS, Schlumberger, TGS)
 ion_2d_seismic=./data/ion_geophysical_seismic_polygons_2d.dat
 ion_3d_seismic=./data/ion_geophysical_seismic_polygons_3d.dat
 
