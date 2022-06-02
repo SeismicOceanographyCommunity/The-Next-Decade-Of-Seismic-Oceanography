@@ -36,18 +36,12 @@ and the folder
 figure4/data/bgs/downloaded_shp
 ```
 
-
-
-
 ### Data conversion
 Downloaded data were converted from various formats (e.g. `.kml`, `.shp`) into simple text files (with extensions `.dat` and `.csv`) for plotting. See the following script for details:
 
 ```
 figure4/dickinson_gunn_2022_figure4_extract_kml_coordinates.sh
 ```
-
-
-
 
 #### License
 
