@@ -15,7 +15,7 @@ To plot the figure, download the repository, navigate to the directory `figure4`
 ./dickinson_gunn_2022_figure4_plot.gmt
 ```
 
-### Data sources:
+### Data sources
 For details of data sources, see the Figshare item [The Next Decade of Seismic Oceanography: Sources of Data for Figure 4](https://doi.org/10.6084/m9.figshare.19462118).
 
 The original files downloaded from these sources are provided in this GitHub repository. See the files:
