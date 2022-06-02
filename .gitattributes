@@ -27,3 +27,10 @@ figure4/data/cgg_seismic_polygons_3d.dat filter=lfs diff=lfs merge=lfs -text
 *.xml filter=lfs diff=lfs merge=lfs -text
 *.shx filter=lfs diff=lfs merge=lfs -text
 *.cpg filter=lfs diff=lfs merge=lfs -text
+figure4/data/geoscience_australia/74674_shp.zip filter=lfs diff=lfs merge=lfs -text
+figure4/data/namss/namss.shapefile[[:space:]](2).zip filter=lfs diff=lfs merge=lfs -text
+figure4/data/onestop_shop/ogr2ogr_practice/UTIG_Trackline.zip filter=lfs diff=lfs merge=lfs -text
+figure4/data/onestop_shop/ogr2ogr_practice/BGR_seismik_Trackline.zip filter=lfs diff=lfs merge=lfs -text
+figure4/data/onestop_shop/ogr2ogr_practice/Geodas_CDPSR.zip filter=lfs diff=lfs merge=lfs -text
+figure4/data/onestop_shop/ogr2ogr_practice/IPGS_Trackline.zip filter=lfs diff=lfs merge=lfs -text
+figure4/data/onestop_shop/ogr2ogr_practice/MG_DMS_Seismic_Reflection.zip filter=lfs diff=lfs merge=lfs -text
