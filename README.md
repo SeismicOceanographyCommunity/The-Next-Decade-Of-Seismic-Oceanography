@@ -1,6 +1,6 @@
 # The Next Decade of Seismic Oceanography: Supplementary Material
 
-[![CC BY 4.0][cc-by-shield]][cc-by]
+[![CC BY 4.0][cc-by-shield]][cc-by] [![DOI:10.5281/zenodo.6603372](https://zenodo.org/badge/DOI/10.5281/zenodo.6603372.svg)](https://doi.org/10.5281/zenodo.6603372)
 
 This repository contains supporting information for the [Frontiers in Marine Science](https://www.frontiersin.org/journals/marine-science) article [The Next Decade of Seismic Oceanography: Possibilities, Challenges and Solutions](https://www.doi.org/10.3389/fmars.2022.736693). Specifically, it contains the scripts and data needed to plot Figure 4. For further supplementary information, see the Figshare collection [The Next Decade of Seismic Oceanography: Supplementary Material](https://doi.org/10.6084/m9.figshare.c.5984767).
 
