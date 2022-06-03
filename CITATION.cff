@@ -1,12 +1,14 @@
 cff-version: 1.1.0
 message: "If you use this software, please cite it as below."
 authors:
-  - family-names: Dickinson
-    given-names: Alex
-    orcid: https://orcid.org/0000-0001-7184-927X
-  - family-names: Gunn
-    given-names: Kathryn L.
-    orcid: https://orcid.org/0000-0003-2397-5364
+- family-names: Dickinson
+  given-names: Alex
+  orcid: https://orcid.org/0000-0001-7184-927X
+- family-names: Gunn
+  given-names: Kathryn L.
+  orcid: https://orcid.org/0000-0003-2397-5364
 title: SeismicOceanographyCommunity/The-Next-Decade-Of-Seismic-Oceanography: 
 version: v1.0.2
+doi: 10.5281/zenodo.6603372
 date-released: 2022-06-02
+url: "https://github.com/SeismicOceanographyCommunity/The-Next-Decade-Of-Seismic-Oceanography"
